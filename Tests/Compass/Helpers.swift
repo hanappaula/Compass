@@ -14,36 +14,36 @@ class TestRoute: Routable {
 
 class ThrowableRoute: Routable {
 
-  enum Error: ErrorType {
-    case Unknown
+  enum Error: Error {
+    case unknown
   }
 
   func navigate(to location: Location, from currentController: Controller) throws {
-    throw Error.Unknown
+    throw Error.unknown
   }
 }
 
 class ErrorRoute: ErrorRoutable {
 
-  var error: ErrorType?
+  var error: Error?
 
-  func handle(routeError: ErrorType, from currentController: Controller) {
+  func handle(_ routeError: Error, from currentController: Controller) {
     error = routeError
   }
 }
 
 // MARK: - Shuffle
 
-extension CollectionType {
+extension Collection {
   /// Return a copy of `self` with its elements shuffled
-  func shuffle() -> [Generator.Element] {
+  func shuffle() -> [Iterator.Element] {
     var list = Array(self)
     list.shuffleInPlace()
     return list
   }
 }
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int {
   /// Shuffle the elements of `self` in-place.
   mutating func shuffleInPlace() {
     // empty and single-element collections don't shuffle
